@@ -7,5 +7,7 @@ namespace API.Entities
         // Since we are using the Id convension, entity framework identifies it as a primary key
         public int Id { get; set; }
         public string UserName { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 }

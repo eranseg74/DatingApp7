@@ -1,14 +1,18 @@
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")] // /api/users
-    public class UsersController : ControllerBase
+    // Don't need that code anymore since we are inheriting from BaseApiController
+    // [ApiController]
+    // [Route("api/[controller]")] // /api/users
+
+    //[Authorize] - at this level all the end points will require authentication
+    // if we will specify [AllowAnonymous] here all the [Authorize] below will be ignored
+    public class UsersController : BaseApiController
     {
         private readonly DataContext _context;
         public UsersController(DataContext context)
@@ -17,6 +21,7 @@ namespace API.Controllers
 
         }
 
+        //[AllowAnonymous] if all require authentication this could be a work around
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
@@ -24,6 +29,7 @@ namespace API.Controllers
             return users;
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetUser(int id)
         {
