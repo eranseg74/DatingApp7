@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
 import { Observable, of } from 'rxjs';
 import { User } from '../_models/user';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +17,7 @@ export class NavComponent implements OnInit{
   // observable is an observable of type null
   currentUser$: Observable<User | null> = of(null);
 
-  constructor(public accountService: AccountService) {} // If the service is private we won't be able to use it in the html template
+  constructor(public accountService: AccountService, private router: Router, private toastr: ToastrService) {} // If the service is private we won't be able to use it in the html template
 
   ngOnInit(): void {
     this.currentUser$ = this.accountService.currentUser$; // This is another option if the service is private
@@ -23,15 +25,14 @@ export class NavComponent implements OnInit{
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: response => {
-        console.log(response);
-      },
-      error: error => console.log(error)
+      next: _ => this.router.navigateByUrl('/members'), // we could user () instead of the _ which means no argument is expected as the response
+      error: error => this.toastr.error(error.error)
     })
   }
 
   logout() {
     this.accountService.logout();
+    this.router.navigateByUrl('/');
   }
 
 }
