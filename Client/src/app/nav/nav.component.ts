@@ -26,7 +26,7 @@ export class NavComponent implements OnInit{
   login() {
     this.accountService.login(this.model).subscribe({
       next: _ => this.router.navigateByUrl('/members'), // we could user () instead of the _ which means no argument is expected as the response
-      error: error => this.toastr.error(error.error)
+      //error: error => this.toastr.error(error.error) // Don't need this code. It is handled in the interceptor
     })
   }
 
