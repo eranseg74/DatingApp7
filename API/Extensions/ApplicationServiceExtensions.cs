@@ -17,6 +17,9 @@ namespace API.Extensions
             // Adding a service to add Cors (Cross Origin Resources) for browser authentication
             services.AddCors();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            // The following is the automapper service configuration
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             return services;
         }
