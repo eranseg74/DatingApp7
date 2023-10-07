@@ -75,9 +75,7 @@ namespace API.Data
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users
-                .Include(p => p.Photos) // This line is required in order to include the related entity (photos in this case)
-                .ToListAsync<AppUser>();
+            return await _context.Users.ToListAsync();
         }
 
         public async Task<bool> SaveAllAsync()

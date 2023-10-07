@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { Observable, take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
 import { Pagination } from 'src/app/_models/pagination';
-import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
 import { MembersService } from 'src/app/_services/members.service';
 
@@ -21,7 +18,7 @@ export class MemberListComponent implements OnInit {
   genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}]
 
   constructor(private memberService: MembersService) {
-    this.userParams = memberService.getUserParams();
+    this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -50,8 +47,8 @@ export class MemberListComponent implements OnInit {
 
   pageChanged(event: any) {
     if (this.userParams && this.userParams?.pageNumber !== event.page) {
-      this.userParams.pageNumber = event.page;
       this.memberService.setUserParams(this.userParams); // Updating the user parameters in any page change
+      this.userParams.pageNumber = event.page;
       this.loadMembers();
     }
   }

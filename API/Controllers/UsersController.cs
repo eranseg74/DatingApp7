@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -47,7 +46,6 @@ namespace API.Controllers
             return Ok(users);
         }
 
-        // [Authorize] - Not required - we have [Authorized] at the class level
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {

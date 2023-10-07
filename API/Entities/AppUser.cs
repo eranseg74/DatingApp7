@@ -1,16 +1,19 @@
 using API.Extensions;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
 {
-    public class AppUser
+    public class AppUser : IdentityUser<int> // Sets the Id to be an integer. It is a string by default.
     {
         //The Id name is a convension. If another name is used (such as TheId or anything else) we would have to declare this field
         // as a primary key by adding the [Key] annotation above the field.
         // Since we are using the Id convension, entity framework identifies it as a primary key
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public byte[] PasswordHash { get; set; }
-        public byte[] PasswordSalt { get; set; }
+
+        // With regard to the Identity package, Id, UserName, PasswordHash, and PasswordSalt are already given
+        //public int Id { get; set; }
+        //public string UserName { get; set; }
+        //public byte[] PasswordHash { get; set; }
+        //public byte[] PasswordSalt { get; set; }
         public DateOnly DateOfBirth { get; set; }
         public string KnownAs { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
@@ -30,5 +33,7 @@ namespace API.Entities
         public List<UserLike> LikedUsers { get; set; }
         public List<Message> MessagesSent { get; set; }
         public List<Message> MessagesReceived { get; set; }
+
+        public ICollection<AppUserRole> UserRoles { get; set; }
     }
 }

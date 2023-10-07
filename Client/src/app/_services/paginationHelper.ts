@@ -7,7 +7,6 @@ export function getPaginatedResult<T>(url: string, params: HttpParams, http: Htt
     return http.get<T>(url, { observe: 'response', params }).pipe(
       map(response => {
         if (response.body) {
-
           paginatedResult.result = response.body;
         }
         const pagination = response.headers.get('Pagination');

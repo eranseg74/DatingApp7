@@ -25,9 +25,9 @@
                 <a class="dropdown-item" (click)="logout()">Logout</a>
             </div>
         </div>
-        <form *ngIf="!(currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()" autocomplete="off">
-            <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username">
-            <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password" placeholder="Password">
+        <form *ngIf="!(currentUser$ | async)" #loginForm="ngForm" class="d-flex" (ngSubmit)="login()">
+            <input name="username" [(ngModel)]="model.username" class="form-control me-2" type="text" placeholder="Username" autocomplete="username">
+            <input name="password" [(ngModel)]="model.password" class="form-control me-2" type="password" placeholder="Password" autocomplete="current-password">
             <button class="btn btn-success" type="submit">Login</button>
         </form>
     </div>
